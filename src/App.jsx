@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -16,9 +16,10 @@ function App() {
       <ToastProvider>
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
-            <Route path="/" element={<ChatPage />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/" element={<AdminLogin />} />
             <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/chat" element={<ChatPage />} />
             <Route path="/admin-signup" element={<AdminSignup />} />
             <Route path="/password-reset" element={<PasswordReset />} />
             <Route path="/reset-password" element={<ResetNewPassword />} />
