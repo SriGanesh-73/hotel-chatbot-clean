@@ -1,0 +1,61 @@
+/* ===== FRESH DESIGN SYSTEM ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+  /* Colors */
+  --primary:#1f4ed8; /* refined deep blue */
+  --primary-600:#1e40af;
+  --accent:#06b6d4; /* teal */
+  --bg:#f6f8fb;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --line:#e6eefb;
+  --danger:#ef4444;
+
+  /* Text */
+  --text:#0b1220;
+  --text-subtle:#4b5563;
+
+  /* Spacing & radii */
+  --s-xs:6px; --s-sm:10px; --s-md:16px; --s-lg:24px;
+  --r-sm:8px; --r-md:14px; --r-pill:9999px;
+
+  /* Heights */
+  --input-h:48px;
+
+  /* Shadows */
+  --shadow-sm:0 6px 20px rgba(11,20,40,0.06);
+  --shadow-md:0 12px 36px rgba(11,20,40,0.08);
+
+  /* Motion */
+  --fast:160ms; --normal:280ms;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+html{font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;font-size:16px}
+body{margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+/* Typography */
+h1,h2,h3,h4{margin:0;color:var(--text)}
+p{margin:0;color:var(--text-subtle)}
+
+/* Utilities */
+.flex{display:flex}.center{display:flex;align-items:center;justify-content:center}
+.muted{color:var(--text-subtle)}
+
+/* Layout */
+.chatpage-container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--s-lg)}
+.chatbot-container{width:100%;max-width:760px;height:84vh;background:var(--card);border-radius:var(--r-md);box-shadow:var(--shadow-md);overflow:hidden;display:flex;flex-direction:column}
+.admin-container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--s-lg);background:linear-gradient(180deg,var(--bg),#fff)}
+.admin-card{width:100%;max-width:1000px;background:var(--card);border-radius:var(--r-md);box-shadow:var(--shadow-md);padding:calc(var(--s-lg)+8px)}
+
+@media(max-width:768px){.chatbot-container{height:100vh;border-radius:0}.admin-card{padding:var(--s-md);margin:var(--s-md)}}
+
+/* Focus accessibility */
+:focus{outline:none;box-shadow:0 0 0 4px rgba(31,78,216,0.12)}
+
+/* Small helpers */
+.hidden{display:none}
+.container{max-width:1100px;margin:0 auto;padding:0 var(--s-md)}
+

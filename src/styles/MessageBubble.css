@@ -1,0 +1,157 @@
+/* ===== MESSAGE BUBBLES (refactored for new tokens) ===== */
+
+.message { display:flex; margin-bottom:14px; animation: messageFade 260ms ease-out; position:relative }
+
+@keyframes messageFade { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+.guest-message{justify-content:flex-end}
+.bot-message{justify-content:flex-start}
+
+.message-content{
+  /* Reserve extra right padding for an optional close button */
+  --message-close-space:44px;
+  max-width:80%;
+  padding:14px var(--message-close-space) 14px 18px;
+  border-radius:16px;
+  position:relative;
+  box-shadow:var(--shadow-sm);
+  word-wrap:break-word;
+  transition:transform var(--fast), box-shadow var(--fast);
+  background:var(--card);
+  border:1px solid var(--line);
+}
+.message-content:hover{transform:translateY(-2px); box-shadow:var(--shadow-md)}
+
+/* guest (user) bubble */
+.guest-message .message-content{ background: linear-gradient(135deg,var(--primary),var(--primary-600)); color:#fff; border-color:transparent }
+.guest-message .timestamp{ color: rgba(255,255,255,0.86) }
+
+/* Ensure all text inside a guest bubble is readable on dark background */
+.guest-message .message-content,
+.guest-message .message-content p,
+.guest-message .message-content a,
+.guest-message .message-content strong,
+.guest-message .message-content em,
+.guest-message .message-content code {
+  color: #ffffff !important;
+}
+
+/* Tweak small badges inside guest bubbles so they remain visible */
+.guest-message .message-content .msg-badge{
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  color: #ffffff !important;
+}
+
+/* bot bubble */
+.bot-message .message-content{ background: var(--card); color:var(--text); border:1px solid var(--line); box-shadow:var(--shadow-sm) }
+.bot-message .timestamp{ color: var(--muted) }
+
+/* tiny tail decorations (subtle) */
+.guest-message .message-content::after,
+.bot-message .message-content::after{ content:''; position:absolute; width:10px; height:10px; transform:translateY(-6px); }
+.guest-message .message-content::after{ right:6px; background:linear-gradient(135deg,var(--primary),var(--primary-600)); clip-path:polygon(0 0,100% 0,100% 100%)}
+.bot-message .message-content::after{ left:6px; background:var(--card); clip-path:polygon(0 0,100% 0,0 100%); box-shadow: -2px 2px 4px rgba(0,0,0,0.03) }
+
+.message-content p{margin:0;font-size:15px;line-height:1.6}
+.message-content p + p{margin-top:8px}
+
+.timestamp{display:block;margin-top:10px;font-size:12px;color:var(--muted);opacity:0.95;text-align:right}
+
+/* Close button that some UIs render inside the bubble (e.g. dismiss or copy) */
+.message-content .close-btn,
+.message .close-btn,
+.message-content .close {
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:32px;
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:transparent;
+  border:none;
+  color:inherit;
+  cursor:pointer;
+  font-size:16px;
+}
+
+/* Small message-type badge (success/info/warning/error) */
+.msg-badge{display:inline-block;font-size:12px;font-weight:600;padding:4px 8px;border-radius:999px;margin-left:8px}
+.msg-badge.success{background:rgba(34,197,94,0.10);color:var(--success, #16a34a);border:1px solid rgba(34,197,94,0.14)}
+.msg-badge.info{background:rgba(59,130,246,0.09);color:var(--info, #3b82f6);border:1px solid rgba(59,130,246,0.12)}
+.msg-badge.warning{background:rgba(245,158,11,0.08);color:var(--warning, #f59e0b);border:1px solid rgba(245,158,11,0.12)}
+.msg-badge.error{background:rgba(239,68,68,0.08);color:var(--danger, #ef4444);border:1px solid rgba(239,68,68,0.12)}
+
+/* If a close button is present, ensure text does not underlap it on smaller screens */
+@media (max-width:480px){
+  .message-content{padding:12px calc(var(--message-close-space) - 8px) 12px 14px}
+  .message-content p{font-size:14px}
+}
+
+/* typing indicator */
+.typing-indicator{display:flex;align-items:center;padding:10px 12px;background:var(--card);border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow-sm);width:fit-content}
+.typing-dots{display:flex;gap:6px}
+
+.typing-dot{
+  width:8px;
+  height:8px;
+  border-radius:9999px;
+  background:var(--primary);
+  display:inline-block;
+  transform-origin:center center;
+}
+
+/* Animated typing (wave) — applied when typing-dots does NOT have .static */
+.typing-dots:not(.static) .typing-dot{
+  animation:wave 1.2s infinite cubic-bezier(.25,.8,.25,1);
+}
+
+/* increase stagger for a clearer left-to-right wave */
+.typing-dots:not(.static) .typing-dot:nth-child(1){animation-delay:0s}
+.typing-dots:not(.static) .typing-dot:nth-child(2){animation-delay:0.16s}
+.typing-dots:not(.static) .typing-dot:nth-child(3){animation-delay:0.32s}
+
+@keyframes wave{
+  0%,75%,100%{transform:translateY(0) scale(1); opacity:0.6}
+  40%{transform:translateY(-12px) scale(1.25); opacity:1}
+}
+
+/* static loading pulse for transfer placeholders (non-animated) */
+.typing-dots.static .typing-dot{
+  animation:fadePulse 1.6s infinite ease-in-out;
+}
+@keyframes fadePulse{
+  0%,100%{opacity:0.45; transform:translateY(0) scale(1)}
+  50%{opacity:0.85; transform:translateY(-4px) scale(1.05)}
+}
+
+/* message grouping */
+.message + .message{margin-top:6px}
+.message.same-sender{margin-bottom:6px}
+.message.same-sender .timestamp{display:none}
+
+@media(max-width:768px){.message-content{max-width:86%;padding:10px 12px}.message-content p{font-size:14px}.timestamp{font-size:11px}}
+
+/* On larger screens reduce the max-width so left and right bubbles can share the view */
+@media(min-width:769px){
+  .message-content{max-width:56%}
+}
+
+@media(prefers-reduced-motion:reduce){.message{animation:none}.typing-dot{animation:none}.message-content{transition:none}}
+
+/* DEBUG OVERRIDE: Force typing animation even when prefers-reduced-motion is enabled.
+   Remove this block after verifying the animation in the browser. */
+.typing-dot{
+  /* override any earlier 'animation: none' with high specificity using !important */
+  animation-name: wave !important;
+  animation-duration: 1.2s !important;
+  animation-timing-function: cubic-bezier(.25,.8,.25,1) !important;
+  animation-iteration-count: infinite !important;
+  animation-delay: 0s !important;
+}
+.typing-dot:nth-child(1){animation-delay:0s !important}
+.typing-dot:nth-child(2){animation-delay:0.16s !important}
+.typing-dot:nth-child(3){animation-delay:0.32s !important}

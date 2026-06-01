@@ -1,0 +1,46 @@
+{
+  "name": "hotel-chatbot",
+  "private": true,
+  "version": "0.0.0",
+  "homepage": "https://sriganesh-73.github.io/hotel-chatbot",
+  "type": "module",
+
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+
+  "dependencies": {
+    "@emailjs/browser": "^3.3.0",
+    "@emailjs/nodejs": "^5.0.2",
+    "axios": "^1.12.2",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "firebase": "^10.7.1",
+    "firebase-admin": "^13.5.0",
+    "nodemon": "^3.1.10",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-icons": "^4.11.0",
+    "react-router-dom": "^6.8.1"
+  },
+
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "vite": "^5.4.0",
+    "gh-pages": "^6.1.1"
+  }
+}

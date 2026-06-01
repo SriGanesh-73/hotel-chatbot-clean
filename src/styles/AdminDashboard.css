@@ -1,0 +1,872 @@
+/* Desktop: keep admin dashboard edge-to-edge and fixed
+   Use flat selectors — avoid nested syntax which breaks plain CSS parsers */
+@media (min-width: 1025px) {
+  .admin-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    background: var(--card);
+    box-shadow: none;
+    align-items: stretch;
+    justify-content: stretch;
+    z-index: 1200;
+  }
+
+  .admin-card {
+    position: relative;
+    max-width: none;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 32px 40px;
+    background: var(--card);
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Auth card: center and constrain form fields to a readable column width */
+.auth-card .admin-form{
+  max-width:360px;
+  margin:18px auto 0;
+  display:block;
+  padding:0;
+}
+.auth-card .admin-form .form-group{margin-bottom:14px}
+.auth-card .admin-form input{box-sizing:border-box;width:100%}
+
+/* Center headings in auth card */
+.auth-card .admin-title{ text-align:center; font-size:1.25rem; margin:6px 0 6px }
+.auth-card .admin-subtitle{ text-align:center; color:var(--muted); margin-bottom:12px }
+
+/* Make the primary submit button match the constrained width and be visually prominent */
+.auth-card .submit-button{ grid-column:auto; width:100%; max-width:360px; margin:12px auto 0; padding:12px 18px; border-radius:10px }
+
+/* Ensure checkbox-row keeps full width inside the constrained form */
+.auth-card .checkbox-row{ justify-content:space-between }
+
+/* When used inside auth flows, keep the auth card compact and centered regardless of admin-container full-screen rules */
+.auth-container{display:block;align-items:center;justify-content:center;padding:36px;background:linear-gradient(180deg,rgba(250,245,240,0.6),rgba(255,250,240,0.4));min-height:100vh}
+/* Auth pages: create a subtle colored backdrop and allow normal scrolling */
+.auth-container.auth-backdrop{background:linear-gradient(180deg,#faf5f0,#fff9f2)}
+.auth-container .admin-card{display:block;width:100%;max-width:480px;height:auto;padding:32px;margin:48px auto;border-radius:14px;box-shadow:0 18px 50px rgba(2,6,23,0.12);background:#ffffff;border:1px solid rgba(15,23,42,0.04)}
+
+/* Ensure the auth-container doesn't get the admin dashboard full-screen behavior */
+.auth-container{position:relative !important; inset:auto !important; width:auto !important; height:auto !important}
+
+@media (max-width:480px){
+  .auth-container{padding:18px}
+  .auth-container .admin-card{padding:20px}
+}
+
+.auth-brand{display:none}
+.brand-circle{display:none}
+.checkbox-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0}
+.checkbox-label{font-size:14px;color:var(--muted);display:inline-flex;align-items:center;gap:8px}
+.forgot-link{color:var(--primary);text-decoration:none;font-weight:700}
+.auth-divider{display:none}
+.social-btn{display:none}
+.social-icon{display:none}
+.google-btn{display:none}
+
+.dashboard-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.header-content h1{font-size:20px;font-weight:700;margin:0;background:linear-gradient(90deg,var(--primary),var(--accent));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-content p{font-size:14px;color:var(--muted);margin:4px 0 0}
+
+.header-actions{display:flex;align-items:center;gap:12px}
+.welcome-text{font-size:13px;color:var(--muted);font-weight:600}
+.logout-button{background:var(--danger);color:#fff;border:none;padding:8px 12px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.logout-button:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+
+.tab-navigation{display:flex;gap:8px;margin-bottom:16px;background:transparent;padding:4px;border-radius:10px}
+.tab-button{flex:1;display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.tab-button:hover{color:var(--text);background:var(--card);box-shadow:var(--shadow-sm)}
+.tab-button.active{background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;box-shadow:var(--shadow-md);transform:translateY(-2px)}
+
+.tab-content{animation:fadeIn .28s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.admin-form{display:block;margin-bottom:18px}
+.admin-form .form-group{margin-bottom:12px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.admin-form input{width:100%;padding:10px 12px;font-size:14px;border:1px solid var(--line);border-radius:10px;background:var(--card);transition:box-shadow .18s}
+.admin-form input:focus{outline:none;box-shadow:0 8px 20px rgba(31,78,216,0.06);border-color:var(--primary)}
+.admin-form input::placeholder{color:var(--muted)}
+.admin-form input.error{border-color:var(--danger)}
+.error-message{color:var(--danger);font-size:13px;margin-top:6px}
+
+.verification-controls{display:flex;flex-direction:column;gap:10px}
+.verification-button{background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;border:none;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+.verification-button:disabled{opacity:0.6;cursor:not-allowed}
+.verification-status{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;font-weight:700}
+.verification-status.verified{background:rgba(16,185,129,0.08);color:#059669;border:1px solid rgba(16,185,129,0.12)}
+.verification-status.pending{background:rgba(31,78,216,0.06);color:var(--primary);border:1px solid rgba(31,78,216,0.08)}
+
+/* OTP controls */
+.otp-controls{display:flex;align-items:center;gap:8px}
+.otp-send-button,.otp-verify-button{background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;border:none;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer}
+.otp-send-button:disabled{opacity:0.6;cursor:not-allowed}
+.otp-input{padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);font-size:14px;text-align:center}
+
+.submit-button{grid-column:1/-1;background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;border:none;padding:12px 18px;font-size:16px;font-weight:700;border-radius:12px;cursor:pointer;box-shadow:var(--shadow-md);margin-top:12px}
+.submit-button:disabled{opacity:0.6;cursor:not-allowed}
+
+.chatbot-link-container{background:linear-gradient(135deg,rgba(16,185,129,0.06),rgba(31,78,216,0.03));border:1px solid rgba(16,185,129,0.12);border-radius:10px;padding:14px;margin-top:14px;text-align:center}
+.link-title{font-size:16px;font-weight:800;color:#059669;margin:0 0 8px}
+.link-display{display:flex;gap:8px;margin-bottom:10px}
+.link-input{flex:1;padding:8px 10px;border:1px solid rgba(0,0,0,0.04);border-radius:8px;background:var(--card);font-family:monospace}
+.copy-button{background:linear-gradient(90deg,#059669,#047857);color:#fff;border:none;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer}
+
+/* Dismiss button shown next to copy in the chat link container */
+.dismiss-link-button{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--muted);
+  padding:8px 10px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .18s,transform .12s,color .12s;
+}
+.dismiss-link-button:hover{background:rgba(0,0,0,0.04);color:var(--text);transform:translateY(-1px)}
+.dismiss-link-button:focus{outline:2px solid rgba(59,130,246,0.18);outline-offset:2px}
+
+.status-msg{padding:10px 12px;border-radius:8px;font-size:14px;font-weight:600;margin:12px 0;border:1px solid;animation:slideIn .28s ease-out}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.status-msg.success{background:rgba(16,185,129,0.06);color:#059669;border-color:rgba(16,185,129,0.12)}
+.status-msg.error{background:rgba(239,68,68,0.06);color:var(--danger);border-color:rgba(239,68,68,0.12)}
+
+.navigation-link{display:inline-flex;align-items:center;gap:8px;color:var(--primary);text-decoration:none;font-weight:700;padding:8px 12px;border-radius:8px;background:rgba(239,246,255,1);border:1px solid rgba(191,219,254,1)}
+
+@media(max-width:768px){.admin-card{padding:14px}.dashboard-header{flex-direction:column;align-items:flex-start}.tab-navigation{gap:6px}.submit-button{width:100%}}
+
+
+.navigation-link:hover{
+  background:#dbeafe;transform:translateY(-1px);box-shadow:0 1px 2px rgba(0,0,0,0.05);color:var(--primary);text-decoration:none;font-size:0.875rem
+}
+
+@media (max-width:768px){
+  .admin-container{padding:16px}
+  .admin-card{padding:14px}
+  .dashboard-header{flex-direction:column;align-items:flex-start}
+  .header-actions{justify-content:space-between}
+  .admin-form{grid-template-columns:1fr;gap:12px}
+  .tab-navigation{flex-direction:column}
+  .link-display{flex-direction:column}
+  .copy-button{width:100%}
+  .dismiss-link-button{width:100%}
+}
+
+/* Make admin dashboard full-screen and fixed on small/medium screens too (prevent moving) */
+@media (max-width: 1024px) {
+  .admin-container {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    z-index: 1200 !important;
+    background: var(--card) !important;
+  }
+
+  .admin-card {
+    position: relative !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    padding: 20px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: auto !important;
+  }
+}
+
+@media (max-width:480px){
+  .admin-container{padding:8px}
+  .admin-card{padding:12px}
+  .header-content h1{font-size:1.5rem}
+  .header-content p{font-size:1rem}
+  .tab-button{padding:.75rem 1rem;font-size:.875rem}
+  .admin-form input{padding:.75rem 1rem}
+  .submit-button{padding:1rem 1.5rem;font-size:1rem}
+}
+
+/* Final desktop override: ensure edge-to-edge full viewport coverage and override earlier max-width rules */
+@media (min-width: 1025px) {
+  .admin-container {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: var(--card) !important;
+    box-shadow: none !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    z-index: 1200 !important;
+  }
+  .admin-card {
+    position: relative !important;
+    max-width: none !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 32px 40px !important;
+    background: var(--card) !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+/* ===== Add Guest form layout tweaks ===== */
+/* Target only the Add Guest form inside AdminDashboard by giving the form a className 'add-guest-form' in markup (or rely on `.admin-form` when on addGuest tab) */
+.admin-form.add-guest-form{
+  display: grid;
+  grid-template-columns: 1fr 320px; /* main column + sidebar-ish narrower column */
+  gap: 16px;
+  align-items: start;
+}
+
+.admin-form.add-guest-form .form-group{margin-bottom:8px}
+.admin-form.add-guest-form .form-group input,
+.admin-form.add-guest-form .form-group select,
+.admin-form.add-guest-form .form-group textarea{
+  max-width:100%;
+  box-sizing:border-box;
+}
+
+/* Make submit span both columns and align right in the second column area */
+.admin-form.add-guest-form .submit-button{
+  grid-column: 1 / -1;
+  justify-self: end;
+  max-width: 220px;
+}
+
+@media (max-width: 880px){
+  .admin-form.add-guest-form{ grid-template-columns: 1fr; }
+  .admin-form.add-guest-form .submit-button{ width:100%; justify-self: stretch; max-width:none }
+}
+
+/* ===== Auth layout tweaks for centered card with brand and scrolling inner area ===== */
+.auth-brand{display:flex;justify-content:center;margin-top:6px}
+.brand-circle{display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;font-weight:800;font-size:20px;margin:0 auto 12px;box-shadow:var(--shadow-sm)}
+
+/* Inner content wrapper: constrain height on small screens and allow vertical scroll inside the card */
+.auth-card-inner{display:flex;flex-direction:column;gap:8px}
+.auth-card{overflow:visible}
+.auth-card .auth-card-inner{max-height:calc(100vh - 200px);overflow:auto;padding-right:8px}
+
+/* Ensure the overall page can scroll on mobile and the fixed admin-container rules don't prevent scrolling */
+.auth-container{position:relative !important;height:auto !important;overflow:auto}
+
+/* Small tweaks for very small screens */
+@media (max-width:420px){
+  .brand-circle{width:56px;height:56px;font-size:18px}
+  .auth-card .auth-card-inner{max-height:calc(100vh - 150px)}
+}
+
+/* Page background for auth pages: subtle, warm gradient to match reference */
+.auth-container{
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,250,245,1) 45%, rgba(253,243,227,1) 100%);
+}
+
+/* Slight overlay / vignette to center the card visually */
+.auth-container::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0) 40%, rgba(0,0,0,0.02) 100%);
+  pointer-events: none;
+}
+
+/* Normalize input widths inside auth card so signup and login match exactly */
+.auth-card .admin-form{max-width:360px;margin:18px auto 0;padding:0}
+.auth-card .admin-form input,.auth-card .admin-form select,.auth-card .admin-form textarea{width:100%;max-width:360px;box-sizing:border-box}
+
+/* Ensure signup form fields (including those added) inherit the same sizing as login fields */
+.auth-card.auth-card .admin-form,
+.auth-card .admin-form{
+  width:100%;
+  max-width:360px;
+}
+.auth-card .admin-form input,
+.auth-card .admin-form select,
+.auth-card .admin-form textarea{
+  width:100% !important;
+  max-width:360px !important;
+}
+
+/* Make sure the card stands out from the background */
+.auth-card{background: #e9e9e9; /* lighter, adjusted color */
+  border: 1px solid rgba(0,0,0,0.28);
+  box-shadow: 0 28px 80px rgba(2,6,23,0.18);
+  outline: 1px solid rgba(0,0,0,0.06);
+  transition: transform .12s, box-shadow .12s;
+}
+.auth-card:hover{transform:translateY(-6px);box-shadow:0 36px 110px rgba(2,6,23,0.22)}
+
+/* Stronger override: ensure any direct input descendants of the auth card form have identical sizing */
+.admin-card.auth-card > .auth-card-inner .admin-form .form-group input,
+.admin-card.auth-card > .auth-card-inner .admin-form .form-group select,
+.admin-card.auth-card > .auth-card-inner .admin-form .form-group textarea {
+  width: 100% !important;
+  max-width: 360px !important;
+  box-sizing: border-box !important;
+}
+
+/* Toggle switch for 'Stay signed in' */
+.toggle-label{display:inline-flex;align-items:center;gap:10px;cursor:pointer}
+.toggle-input{display:none}
+.toggle-ui{width:44px;height:24px;background:#e6eefc;border-radius:20px;position:relative;display:inline-block}
+.toggle-ui::after{content:'';position:absolute;left:4px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 4px 8px rgba(2,6,23,0.08);transition:all .18s}
+.toggle-input:checked + .toggle-ui{background:linear-gradient(90deg,var(--primary),var(--accent))}
+.toggle-input:checked + .toggle-ui::after{transform:translateX(20px)}
+
+/* Forgot password small form */
+.forgot-form .form-group{margin-bottom:10px}
+.forgot-link{background:none;border:none;color:var(--primary);font-weight:700;cursor:pointer}
+
+/* High-specificity fallback: ensure auth-card background is always the requested color
+   This targets the auth container's admin-card when it also has the auth-card class */
+.auth-container .admin-card.auth-card{
+  background: #e9e9e9 !important;
+  border: 1px solid rgba(0,0,0,0.28) !important;
+  box-shadow: 0 28px 80px rgba(2,6,23,0.18) !important;
+}
+
+/* Constrain the auth-card so it appears as a centered card instead of full-viewport */
+.auth-container .admin-card.auth-card{
+  width: auto !important;
+  max-width: 520px !important;
+  height: auto !important;
+  margin: 48px auto !important;
+  padding: 28px 24px !important;
+  border-radius: 14px !important;
+  display: block !important;
+}
+
+/* Ensure admin dashboard is scrollable: prevent content from being clipped when admin-card is full-viewport
+   This override sets a max-height and enables overflow auto on the card and container so long content can be scrolled into view. */
+.admin-container, .admin-card {
+  /* keep existing layout but allow scrolling for long content */
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.admin-card {
+  /* ensure the card can't exceed viewport height so its content becomes scrollable */
+  max-height: 100vh !important;
+}
+
+/* Escalations tab badge */
+.tab-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:20px;
+  height:20px;
+  padding:0 6px;
+  border-radius:999px;
+  background:var(--danger);
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  margin-left:8px;
+}
+
+.escalations-grid{display:flex;gap:16px}
+/* container for the two columns: left list + right panel
+  mobile-first: stack vertically; on wide screens use a two-column layout where
+  the right panel is larger than the left (360px left, flexible right) */
+.escalations-grid{display:flex;flex-direction:column;gap:16px;align-items:stretch}
+
+/* Mobile-first common Escalations tab styles */
+.escalation-list{
+  width:100%;
+  max-width:100%;
+  max-height:60vh;
+  overflow:auto;
+  padding:0; /* delegate padding to container to match GuestList */
+  border-right:1px solid var(--line);
+  background:transparent; /* container will provide background */
+  border-radius:8px;
+  position:relative;
+  box-sizing:border-box;
+}
+
+/* Provide a container wrapper for the left list so it reserves visible space when empty
+   and shows the loader at consistent size similar to GuestList.container */
+.escalation-list-container{
+  /* Mirror guest-list container visuals for a single-column look */
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px; /* match GuestList padding */
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+  margin-top: 16px;
+  margin-bottom: 8px;
+  min-height: 340px; /* ensure spinner centers and header spacing is preserved */
+  position: relative; /* positioning context for .list-loading */
+  display: flex;
+  flex-direction: column;
+}
+
+.escalation-list-container::before{
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+.escalation-panel .escalation-list{
+  width:100%;
+  max-height:60vh;
+  overflow:auto;
+  padding:12px;
+  border-right:1px solid var(--line);
+  background:var(--panel-bg,var(--card));
+  border-radius:8px;
+  position:relative;
+}
+.escalation-panel{
+  min-height:220px;
+  padding:14px;
+  background:transparent;
+  /* Constrain the right panel to a viewport-relative height to avoid creating an outer page scroll. */
+  display:flex;
+  flex-direction:column;
+  /* subtract approx header + padding space so the panel fits inside the admin-card */
+  max-height: calc(100vh - 160px);
+  height: auto;
+}
+
+/* Ensure the left list fills the container and can host the absolute loader overlay */
+.escalation-list-container{
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px; /* match GuestList padding */
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+  margin-top: 16px;
+  margin-bottom: 8px;
+  min-height: 340px; /* ensure spinner centers and header spacing is preserved */
+  position: relative; /* positioning context for .list-loading */
+  display: flex;
+  flex-direction: column;
+  overflow: visible; /* allow loader to overflow the inner list */
+}
+
+.escalation-list{
+  width:100%;
+  max-width:100%;
+  overflow:auto;
+  padding:0; /* spacing moved to container */
+  background:transparent;
+  border-radius:8px;
+  position:relative;
+  box-sizing:border-box;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Escalation list items: ensure they remain inside the left card, are clickable, and show pointer cursor */
+.escalation-item{
+  box-sizing: border-box;
+  background: transparent;
+  /* reduce horizontal padding so right-aligned labels stay inside card */
+  padding: 12px 8px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  transition: transform .12s, box-shadow .12s, background .12s;
+  cursor: pointer;
+  overflow: hidden; /* prevent content from overflowing card */
+}
+.escalation-item:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0));
+}
+
+.escalation-item .esc-question{ /* ensure question text wraps and doesn't overflow */
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* limit lines in collapsed view */
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+/* Right panel: message area and composer styles */
+.escalation-panel .messages-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-height:48vh;
+  overflow:auto;
+  padding:8px;
+  background:transparent;
+  border-radius:8px;
+}
+
+/* Ensure the admin chat panel inside the escalation-panel uses internal scrolling and doesn't grow the page height */
+.escalation-panel .admin-chat-root{
+  display:flex;
+  flex-direction:column;
+  /* make the chat root fill the available panel space while leaving header/composer visible */
+  height: calc(100% - 0px);
+  max-height: calc(100vh - 220px);
+}
+.escalation-panel .admin-chat-messages{
+  /* cap the message list so it's scrollable within the panel */
+  max-height: calc(100vh - 320px);
+  overflow:auto;
+}
+
+.escalation-panel .msg{
+  max-width:85%;
+  padding:10px 12px;
+  border-radius:12px;
+  background:var(--card);
+  border:1px solid rgba(0,0,0,0.04);
+  box-shadow:var(--shadow-sm);
+}
+.escalation-panel .msg.admin{background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;border:none}
+.escalation-panel .msg.guest{background:var(--panel-bg,#fff);color:var(--text)}
+
+.escalation-panel .composer{
+  display:flex;
+  gap:8px;
+  align-items:flex-end;
+  margin-top:12px;
+}
+
+/* AdminChatPanel internal layout: keep header and composer fixed and make messages scrollable */
+.admin-chat-root{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  min-height:320px;
+}
+.admin-chat-header{
+  padding:8px 6px 12px;
+  border-bottom:1px solid var(--line);
+}
+.admin-chat-messages{
+  flex:1 1 auto;
+  overflow:auto;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  background:transparent;
+}
+.admin-chat-messages .message{max-width:86%}
+.admin-chat-composer{
+  padding:12px 6px 8px;
+  border-top:1px solid var(--line);
+  background:transparent;
+}
+
+/* Ensure smooth scrolling on touch devices */
+.admin-chat-messages{ -webkit-overflow-scrolling: touch; }
+
+/* match project's textarea appearance with subtle inset and rounded corners */
+.escalation-panel textarea.reply-input{
+  flex:1;
+  min-height:56px;
+  max-height:180px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:var(--card);
+  resize:vertical;
+  font-size:14px;
+  color:var(--text);
+  box-shadow:0 8px 20px rgba(31,78,216,0.03);
+}
+.escalation-panel textarea.reply-input:focus{outline:none;border-color:var(--primary)}
+
+/* --- Targets for markup using plain textarea and .primary/.secondary buttons --- */
+.escalation-panel textarea{
+  width:100%;
+  min-height:56px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:var(--card);
+  resize:vertical;
+  font-size:14px;
+  color:var(--text);
+  box-shadow:0 8px 20px rgba(31,78,216,0.03);
+}
+.escalation-panel textarea:focus{outline:none;border-color:var(--primary)}
+
+/* style the actual buttons used in AdminDashboard.jsx */
+.esc-actions{display:flex;gap:12px;margin-top:12px}
+.esc-actions .primary{
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:800;
+  box-shadow:var(--shadow-md);
+  cursor:pointer;
+}
+.esc-actions .primary:disabled{opacity:0.6;cursor:not-allowed}
+.esc-actions .secondary{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.esc-actions .secondary[title]{padding:8px 12px}
+.escalation-panel textarea.reply-input:focus{outline:none;border-color:var(--primary)}
+
+/* action buttons next to composer: align with project primary/ghost styles */
+.escalation-panel .composer .btn{margin-left:4px}
+.escalation-panel .composer .btn.send{background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;border:none;padding:10px 14px;border-radius:12px;font-weight:800;box-shadow:var(--shadow-md);cursor:pointer}
+.escalation-panel .composer .btn.resolve{background:transparent;border:1px solid var(--line);color:var(--text);padding:8px 12px;border-radius:10px;cursor:pointer}
+
+/* small helper: when message list is empty, center placeholder */
+.escalation-panel .empty-note{text-align:center;color:var(--muted);padding:20px}
+
+.esc-details{margin-bottom:12px}
+.esc-actions{display:flex;gap:8px;margin-top:12px}
+
+/* Escalation item inner layout */
+.escalation-item .esc-header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.escalation-item .esc-meta{color:var(--muted);font-size:13px}
+.escalation-item .esc-subject{font-weight:800;font-size:14px;margin:6px 0}
+
+/* Ensure the room label stays within the flex header and wraps if needed */
+.escalation-item .esc-room{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-left:8px}
+
+/* Empty state inside panel */
+.esc-placeholder{color:var(--muted);padding:20px;display:flex;align-items:center;justify-content:center;min-height:200px;text-align:center}
+
+/* Buttons inside escalation panel */
+.esc-actions .btn{padding:8px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;box-shadow:var(--shadow-sm)}
+/* Use the same visual language as .submit-button but slightly smaller */
+.esc-actions .btn.primary{background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;padding:10px 14px;border-radius:10px;font-weight:800;border:none;box-shadow:var(--shadow-md)}
+.esc-actions .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text);padding:8px 12px}
+
+/* Two-column layout for wider screens: left fixed 360px, right flexible */
+@media (min-width: 881px){
+  .escalations-grid{display:grid;grid-template-columns:360px 1fr;align-items:start;gap:20px}
+  /* have the inner list fill the container column (the container provides padding) */
+  .escalation-list{width:100%;max-width:100%;box-sizing:border-box}
+  .escalation-panel{padding:18px}
+}
+
+/* Make loader overlay sit above list content when visible */
+.escalation-list-container.loading .list-loading,
+.escalation-list.loading .list-loading{
+  position: absolute;
+  inset: 0; /* fill the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+/* Small visual tweaks to make the panel text a bit more readable */
+.escalation-panel h3{margin:0 0 6px;font-size:16px}
+.escalation-panel p{color:var(--muted);margin:0 0 8px}
+.esc-placeholder{color:var(--muted);padding:20px;display:flex;align-items:center;justify-content:center;min-height:240px}
+
+/* Loader overlay inside the left escalation list (match GuestList styles) */
+.escalation-list-container .list-loading{
+  /* fill the outer container and center contents */
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 600;
+  background: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(255,255,255,0.02));
+  z-index: 1200; /* keep on top */
+  pointer-events: none; /* allow clicks to pass when visible */
+}
+.escalation-list-container.loading > .escalation-list > *{visibility:hidden}
+.escalation-list-container.loading > .escalation-list > .list-loading{visibility:visible;display:flex}
+.escalation-list.loading > *{visibility:hidden}
+.escalation-list.loading .list-loading{visibility:visible;display:flex}
+.escalation-list .list-loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;z-index:60}
+.escalation-list .list-loading .loading-spinner{position:static;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:transparent;padding:0}
+.escalation-list .list-loading .spinner-circle{width:48px;height:48px;border-radius:9999px;border:4px solid rgba(0,0,0,0.08);border-top:4px solid var(--primary);animation:spin .9s linear infinite}
+.escalation-list .list-loading .loading-text{margin-top:6px;color:var(--muted);font-size:14px}
+
+/* when used inside the list, keep the spinner static so it centers inline */
+.escalation-list .list-loading .loading-spinner {
+  position: static;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  z-index: 2;
+}
+
+.escalation-list .spinner-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 4px solid rgba(0,0,0,0.08);
+  border-top: 4px solid var(--primary);
+  animation: spin 0.9s linear infinite;
+}
+
+.escalation-list .loading-text { margin-top: 6px; color: var(--muted); font-size: 14px }
+
+/* Keep overall escalations tab positioned so other shared spinners still work */
+.escalations-tab{position:relative;min-height:220px;overflow:visible !important;z-index:1200}
+
+/* Strong override: ensure the escalation loader is visually centered inside its outer card
+   This uses higher specificity and !important flags to defeat earlier competing rules. */
+.escalation-list-container.loading .list-loading,
+.escalation-list.loading .list-loading {
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  visibility: visible !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2000 !important;
+}
+
+/* debug outline removed (no longer used) */
+
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Responsive fixes for Escalations tab */
+@media (max-width: 880px) {
+  .escalations-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .escalation-list {
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    border-right: none;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  .escalation-panel {
+    width: 100%;
+    padding: 12px;
+    min-height: 180px;
+  }
+  .esc-placeholder { min-height: 140px; padding: 16px }
+  .escalation-list .list-loading { inset: 0; position: absolute; }
+  /* ensure the left list container still has room on mobile when empty */
+  .escalation-list-container{ min-height: 260px }
+  .escalation-list .spinner-circle { width: 40px; height: 40px; border-width: 3px }
+  .escalation-list .loading-text { font-size: 13px }
+}
+
+@media (max-width: 480px) {
+  .escalation-list { padding: 10px }
+
+  /* make the inner list fill the container so absolute loader can center vertically */
+  .escalation-list{
+    flex: 1 1 auto;
+    min-height: 0; /* allow flex child to shrink and allow centering */
+    display: block;
+  }
+  .escalation-panel { padding: 10px }
+  .escalation-list .spinner-circle { width: 34px; height: 34px; border-width: 3px }
+  .escalation-list .loading-text { font-size: 12px }
+}
+
+/* ===== Final overrides to resolve conflicting loader rules =====
+   Ensure the loader we placed inside the outer .escalation-list-container
+   is the only visible loader and is absolutely centered. This neutralizes
+   any earlier rules that targeted .escalation-list .list-loading. */
+
+/* Hide any loader that is targeted inside the inner list (legacy selectors) */
+.escalation-list > .list-loading,
+.escalation-list .list-loading {
+  display: none !important;
+  visibility: hidden !important;
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
+
+/* Force the container-level loader to fill the outer card and center its contents */
+.escalation-list-container > .list-loading {
+  position: absolute !important;
+  inset: 0 !important; /* full-card overlay */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(255,255,255,0.02)) !important;
+  visibility: visible !important;
+  z-index: 3000 !important;
+  pointer-events: none !important;
+}
+
+/* Neutralize any global .loading-spinner rules (from GuestList or other files)
+   when the spinner is used inside the container-level loader. This ensures
+   the spinner's inner layout stays centered instead of being forced to inset:0. */
+.escalation-list-container > .list-loading .loading-spinner {
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.escalation-list-container > .list-loading .spinner-circle{
+  margin: 0 !important;
+}
+
+/* Slightly increase container min-height on narrow viewports if needed */
+.escalation-list-container{
+  min-height: 380px; /* give more room so loader sits visually centered */
+}
+
+

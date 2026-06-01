@@ -1,0 +1,46 @@
+/* ===== QUICK REPLIES (refreshed) ===== */
+
+.quick-replies{padding:12px 14px;background:var(--card);border-top:1px solid var(--line);animation:slideUp 260ms ease-out;position:relative}
+.quick-replies::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+
+.quick-replies-title{font-size:13px;color:var(--muted);margin-bottom:10px;text-align:center;font-weight:600;letter-spacing:0.6px}
+.quick-replies-title::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:48px;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:9999px}
+
+.quick-replies-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:0 auto;padding:0;max-width:640px}
+
+/* Desktop: use a fixed 3-column grid so quick replies form a 3x4 layout when enough items exist */
+@media(min-width:1025px){
+	.quick-replies-grid{
+		display:grid;
+		/* 5 columns so options render as up to 3 rows x 5 columns (15 items) */
+		grid-template-columns:repeat(5, minmax(120px, 1fr));
+		grid-auto-rows:minmax(38px, auto);
+		gap:12px 12px;
+		justify-items:center;
+		max-width:1300px;
+		padding:6px 10px;
+	}
+	/* compact pill sizing on desktop */
+	.quick-reply-button{min-width:88px;max-width:180px;width:auto;padding:8px 10px;font-size:13px}
+}
+
+.quick-reply-button{background:var(--card);border:1px solid var(--line);border-radius:9999px;font-size:14px;color:var(--text);font-weight:500;padding:10px 14px;cursor:pointer;transition:transform var(--fast),box-shadow var(--fast);min-width:120px;max-width:220px;text-align:center;box-shadow:var(--shadow-sm);flex:0 0 auto;position:relative;overflow:hidden}
+.quick-reply-button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(31,78,216,0.06),transparent);transition:left .6s ease-in-out}
+.quick-reply-button::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));opacity:0;transition:opacity .28s;border-radius:9999px}
+
+.quick-reply-button:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);color:var(--primary-600)}
+.quick-reply-button:hover::before{left:100%}
+.quick-reply-button:hover::after{opacity:1}
+.quick-reply-button:active{transform:translateY(-1px)}
+.quick-reply-button:focus{outline:none;border-color:var(--primary)}
+.quick-reply-button:focus-visible{outline:2px solid rgba(31,78,216,0.14);outline-offset:2px}
+.quick-reply-button[aria-pressed="true"]{background:linear-gradient(90deg,var(--primary),var(--primary-600));color:#fff;border-color:transparent}
+
+.quick-reply-button span{position:relative;z-index:1;display:block;line-height:1.3}
+
+@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+@media(max-width:768px){.quick-replies{padding:10px}.quick-replies-title{margin-bottom:8px;font-size:12px}.quick-replies-grid{gap:8px}.quick-reply-button{min-width:100px;max-width:180px;padding:8px 12px;font-size:13px}}
+@media(max-width:480px){.quick-replies{padding:8px}.quick-replies-title{margin-bottom:6px;font-size:11px}.quick-replies-grid{gap:6px}.quick-reply-button{min-width:88px;max-width:150px;padding:8px 10px;font-size:13px}}
+
+@media(prefers-reduced-motion:reduce){.quick-replies{animation:none}.quick-reply-button{transition:none}.quick-reply-button::before{display:none}.quick-reply-button:hover{transform:none}}
